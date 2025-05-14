@@ -11,19 +11,49 @@ export default function Contact() {
     email: "",
     message: "",
   });
+  const [status, setStatus] = useState({
+    loading: false,
+    success: false,
+    error: null as string | null,
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // This would normally submit the form data to a server
-    console.log("Form submitted:", formState);
-    alert("Form submitted! (This is a demo)");
-    // Reset form
-    setFormState({ name: "", email: "", message: "" });
+    
+    try {
+      setStatus({ loading: true, success: false, error: null });
+      
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Bir hata oluştu.');
+      }
+      
+      // Form başarıyla gönderildi
+      setStatus({ loading: false, success: true, error: null });
+      setFormState({ name: "", email: "", message: "" });
+      
+    } catch (error) {
+      console.error('Form gönderimi hatası:', error);
+      setStatus({ 
+        loading: false, 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Mesaj gönderilirken bir hata oluştu' 
+      });
+    }
   };
 
   return (
@@ -31,9 +61,9 @@ export default function Contact() {
       <div className="w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-12">
           {/* Left Contact Information */}
-          <div className="w-full lg:w-2/5 bg-adlambs-purple text-white p-5 sm:p-8 md:p-10 lg:p-16 xl:p-20 rounded-lg">
+          <div className="animate-slide-in w-full lg:w-2/5 bg-adlambs-purple text-white p-5 sm:p-8 md:p-10 lg:p-16 xl:p-20 rounded-lg">
             <div className="space-y-6 sm:space-y-8">
-              <div className="flex items-center gap-3 sm:gap-4">
+              <div className="animate-fade-in flex items-center gap-3 sm:gap-4">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center border justify-center">
                   <svg
                     width="18"
@@ -50,14 +80,14 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-white text-xs sm:text-sm">Call Us 7/24</p>
+                  <p className="text-white text-xs sm:text-sm">7/24 Bizi Arayın</p>
                   <p className="font-semibold text-base sm:text-lg md:text-xl">+90 536 267 22 22</p>
                 </div>
               </div>
 
               <div className="w-full h-[1px] bg-white/20"></div>
 
-              <div className="flex items-center gap-3 sm:gap-4">
+              <div className="animate-fade-in animate-delay-200 flex items-center gap-3 sm:gap-4">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center border justify-center">
                   <Image
                     src="https://ext.same-assets.com/1778345204/548389142.svg"
@@ -68,14 +98,14 @@ export default function Contact() {
                   />
                 </div>
                 <div>
-                  <p className="text-white text-xs sm:text-sm">Make a Quote</p>
-                  <p className="font-semibold text-base sm:text-lg md:text-xl">info@adlambs.com</p>
+                  <p className="text-white text-xs sm:text-sm">Teklif Alın</p>
+                  <p className="font-semibold text-base sm:text-lg md:text-xl">contact@elmalitech.com</p>
                 </div>
               </div>
 
               <div className="w-full h-[1px] bg-white/20"></div>
 
-              <div className="flex items-center gap-3 sm:gap-4">
+              <div className="animate-fade-in animate-delay-300 flex items-center gap-3 sm:gap-4">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center border justify-center">
                   <Image
                     src="https://ext.same-assets.com/1778345204/260646423.svg"
@@ -86,40 +116,39 @@ export default function Contact() {
                   />
                 </div>
                 <div>
-                  <p className="text-white text-xs sm:text-sm">Location</p>
-                  <p className="font-semibold text-base sm:text-lg md:text-xl">Hasanpasa, Hamiyet Sk. No:17/A Kadıköy/İstanbul</p>
+                  <p className="text-white text-xs sm:text-sm">Konum</p>
+                  <p className="font-semibold text-base sm:text-lg md:text-xl break-words">Hasanpasa, Hamiyet Sk. No:17/A Kadıköy/İstanbul</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right Form */}
-          <div className="w-full lg:w-3/5 mt-6 lg:mt-0">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 md:mb-8">Ready To Get Started?</h2>
+          <div className="animate-slide-up animate-delay-300 w-full lg:w-3/5 mt-6 lg:mt-0">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 md:mb-8">Başlamaya Hazır mısınız?</h2>
             <p className="text-gray-600 mb-4 sm:mb-6 md:mb-8 w-full text-sm sm:text-base">
-              Reach out to learn more about how AdLambs can transform your user
-              engagement and boost your brand's success.
+              AdLambs'in kullanıcı etkileşiminizi nasıl dönüştürebileceğini ve markanızın başarısını nasıl artırabileceğini öğrenmek için bizimle iletişime geçin.
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
+            <form onSubmit={handleSubmit} className="animate-fade-in animate-delay-500 space-y-4 sm:space-y-5 md:space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
                 <div>
                   <label htmlFor="name" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-                    Your Name*
+                    Adınız*
                   </label>
                   <Input
                     id="name"
                     name="name"
                     value={formState.name}
                     onChange={handleChange}
-                    placeholder="Your Name"
+                    placeholder="Adınız"
                     required
                     className="w-full h-12 sm:h-14 md:h-16 p-2 sm:p-3 border border-gray-300 bg-transparent focus:outline-none focus:ring-0"
                   />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-                    Your Email*
+                    E-posta Adresiniz*
                   </label>
                   <Input
                     id="email"
@@ -127,7 +156,7 @@ export default function Contact() {
                     type="email"
                     value={formState.email}
                     onChange={handleChange}
-                    placeholder="Your Email"
+                    placeholder="E-posta Adresiniz"
                     required
                     className="w-full h-12 sm:h-14 md:h-16 p-2 sm:p-3 border border-gray-300 bg-transparent focus:outline-none focus:ring-0"
                   />
@@ -136,14 +165,14 @@ export default function Contact() {
 
               <div>
                 <label htmlFor="message" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-                  Write Message*
+                  Mesajınız*
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   value={formState.message}
                   onChange={handleChange}
-                  placeholder="Write Message"
+                  placeholder="Mesajınızı yazın"
                   required
                   rows={4}
                   className="w-full p-2 sm:p-3 border resize-none border-gray-300 bg-transparent focus:outline-none focus:ring-0 rounded-md"
@@ -153,24 +182,39 @@ export default function Contact() {
               <div>
                 <button
                   type="submit"
-                  className="bg-adlambs-purple hover:bg-opacity-90 text-white px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-5 h-10 sm:h-12 md:h-14 flex items-center justify-center sm:justify-start gap-2 font-semibold text-sm sm:text-base rounded-md"
+                  disabled={status.loading}
+                  className="bg-adlambs-purple hover:bg-opacity-90 text-white px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-5 h-10 sm:h-12 md:h-14 flex items-center justify-center sm:justify-start gap-2 font-semibold text-sm sm:text-base rounded-md disabled:opacity-70"
                 >
-                  Send Message
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5"
-                  >
-                    <path d="M5 12H19M19 12L12 5M19 12L12 19" />
-                  </svg>
+                  {status.loading ? 'Gönderiliyor...' : 'Mesaj Gönder'}
+                  {!status.loading && (
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5"
+                    >
+                      <path d="M5 12H19M19 12L12 5M19 12L12 19" />
+                    </svg>
+                  )}
                 </button>
               </div>
+              
+              {status.success && (
+                <div className="mt-4 p-3 bg-green-100 text-green-700 rounded-md text-sm">
+                  Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.
+                </div>
+              )}
+              
+              {status.error && (
+                <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
+                  {status.error}
+                </div>
+              )}
             </form>
           </div>
         </div>

@@ -10,15 +10,15 @@ export default function Hero() {
 
   const tickerItems = [
     { id: "item-1", text: "Adlambs" },
-    { id: "item-2", text: "Where Ads Meet Rewards" },
+    { id: "item-2", text: "Reklamlar Ödüllerle Buluşuyor" },
     { id: "item-3", text: "Adlambs" },
-    { id: "item-4", text: "Where Ads Meet Rewards" },
+    { id: "item-4", text: "Reklamlar Ödüllerle Buluşuyor" },
     { id: "item-5", text: "Adlambs" },
-    { id: "item-6", text: "Where Ads Meet Rewards" },
+    { id: "item-6", text: "Reklamlar Ödüllerle Buluşuyor" },
     { id: "item-7", text: "Adlambs" },
-    { id: "item-8", text: "Where Ads Meet Rewards" },
+    { id: "item-8", text: "Reklamlar Ödüllerle Buluşuyor" },
     { id: "item-9", text: "Adlambs" },
-    { id: "item-10", text: "Where Ads Meet Rewards" },
+    { id: "item-10", text: "Reklamlar Ödüllerle Buluşuyor" },
   ];
 
   return (
@@ -36,6 +36,39 @@ export default function Hero() {
           display: inline-block;
           white-space: nowrap;
           animation: marquee 20s linear infinite;
+        }
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        @keyframes slideUp {
+          from {
+            transform: translateY(30px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        .animate-fade-in {
+          animation: fadeIn 1s ease-out forwards;
+        }
+        .animate-slide-up {
+          animation: slideUp 1s ease-out forwards;
+        }
+        .animate-delay-100 {
+          animation-delay: 100ms;
+        }
+        .animate-delay-300 {
+          animation-delay: 300ms;
+        }
+        .animate-delay-500 {
+          animation-delay: 500ms;
         }
         .hero-content {
           background-image: url('/images/hero-bg.jpg');
@@ -74,14 +107,13 @@ export default function Hero() {
             <div className="flex flex-col lg:flex-row items-center gap-6 md:gap-8">
               {/* Left side - Content */}
               <div className="w-full flex-row space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-8">
-                <h1 className="text-black font-['Kumbh_Sans',sans-serif] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[80px] font-medium h-auto leading-tight md:leading-tight lg:leading-[73.92px] mb-2 sm:mb-3 md:mb-4 lg:mb-[30px] m-0 p-0 text-start">
-                  Where ads meet <span className="block">rewards</span>
+                <h1 className="animate-slide-up text-black font-['Kumbh_Sans',sans-serif] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[80px] font-medium h-auto leading-tight md:leading-tight lg:leading-[73.92px] mb-2 sm:mb-3 md:mb-4 lg:mb-[30px] m-0 p-0 text-center sm:text-start">
+                  Reklamlar <span className="block animate-slide-up animate-delay-300">ödüllerle buluşuyor</span>
                 </h1>
-                <p className="flex text-sm sm:text-base md:text-lg text-gray-800 font-normal w-full max-w-2xl">
-                  AdLambs is an innovative platform that gamifies advertisements for e-commerce
-                  businesses, offering users a next-generation experience with discounts and rewards.
+                <p className="animate-slide-up animate-delay-500 flex text-sm sm:text-base md:text-lg text-gray-800 font-normal w-full max-w-2xl text-center sm:text-start">
+                  AdLambs, e-ticaret işletmeleri için reklamları oyunlaştıran, kullanıcılara indirimler ve ödüllerle yeni nesil bir deneyim sunan yenilikçi bir platformdur.
                 </p>
-                <div className="pt-3 sm:pt-4 flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-4">
+                <div className="animate-fade-in animate-delay-500 pt-3 sm:pt-4 flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-start gap-3 sm:gap-4">
                   <Link
                     href="https://calendly.com/resatgokaycelik"
                     target="_blank"
@@ -89,7 +121,7 @@ export default function Hero() {
                     className="w-full sm:w-auto"
                   >
                     <button className="w-full sm:w-auto bg-adlambs-purple text-white hover:bg-adlambs-purple/90 px-4 sm:px-5 md:px-6 lg:px-8 py-2.5 sm:py-3 md:py-3.5 flex items-center justify-center sm:justify-start gap-2 font-medium text-xs sm:text-sm md:text-base">
-                      Make An Appointment
+                      Randevu Oluştur
                       <svg
                         width="12"
                         height="12"
@@ -105,28 +137,11 @@ export default function Hero() {
                       </svg>
                     </button>
                   </Link>
-
-                  <button
-                    aria-label="Play Video"
-                    className="bg-white p-2 md:p-3 rounded-full shadow-md flex items-center justify-center"
-                    type="button"
-                    onClick={() => setIsPlaying(!isPlaying)}
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="text-adlambs-purple w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </button>
                 </div>
               </div>
 
               {/* Right side - Illustration */}
-              <div className="w-full lg:w-1/2 flex justify-center lg:justify-end mt-6 sm:mt-8 lg:mt-0">
+              <div className="animate-fade-in animate-delay-300 w-full lg:w-1/2 flex justify-center lg:justify-end mt-6 sm:mt-8 lg:mt-0">
                 <Image
                   src="https://ext.same-assets.com/1778345204/926121638.png"
                   alt="AdLambs Mascot"
