@@ -4,6 +4,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Scrollbar stilini özelleştir */
+/* Webkit tarayıcılar için (Chrome, Safari, Opera) */
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #5825DC; /* adlambs-purple */
+  border-radius: 6px;
+  border: 3px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #4a1ebf;
+}
+
+/* Ok tuşlarını gizle */
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Firefox için */
+* {
+  scrollbar-width: thick;
+  scrollbar-color: #5825DC #f1f1f1;
+}
+
 /* Animasyon stilleri */
 @keyframes fadeIn {
   from {
