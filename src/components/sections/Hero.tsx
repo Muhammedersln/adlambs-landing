@@ -120,6 +120,7 @@ export default function Hero() {
           display: flex;
           flex-direction: column;
           justify-content: center;
+          position: relative;
         }
         @media (max-width: 640px) {
           .hero-content {
@@ -132,20 +133,33 @@ export default function Hero() {
 
       <section>
         <div className="hero-content py-10 sm:py-16 md:py-20 lg:py-28 xl:py-32">
+          {/* Background shape positioned in top left corner */}
+          <div className="absolute top-0 left-0 w-[300px] sm:w-[400px] md:w-[450px] lg:w-[500px] z-0">
+            <Image
+              src="/images/line-shape-1.png"
+              alt="Background Lines"
+              width={500}
+              height={400}
+              className="w-full h-auto"
+            />
+          </div>
+          
           <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-            <div className={`mb-4 sm:mb-5 md:mb-6 lg:mb-8 flex items-center animate-slide-up ${isVisible ? 'is-visible' : ''}`}>
-              <Image
-                src="https://ext.same-assets.com/1778345204/885458815.png"
-                alt="Adlambs Logo"
-                width={32}
-                height={32}
-                className="mr-2 w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-10 lg:h-10"
-              />
-              <span className="box-border text-[rgb(64,6,167)] block font-['Kumbh_Sans',sans-serif] text-sm sm:text-base md:text-[18px] font-medium h-auto leading-normal md:leading-[26.1px] m-0 p-0 relative text-start [text-size-adjust:100%] uppercase transition-all duration-[400ms] ease-in-out visible [unicode-bidi:isolate]">
-                ADLAMBS</span>
+            <div className={`mb-4 sm:mb-5 md:mb-6 lg:mb-8 flex items-center animate-slide-up ${isVisible ? 'is-visible' : ''} relative z-10`}>
+              <div className="flex items-center">
+                <div className="flex items-center mr-2">
+                  <svg width="40" height="16" viewBox="0 0 40 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0.5" y="0.5" width="25.6667" height="15" rx="7.5" stroke="#384BFF"></rect>
+                    <rect x="13.3334" width="26.6667" height="16" rx="8" fill="#384BFF"></rect>
+                  </svg>
+                </div>
+                <span className="text-[rgb(64,6,167)] text-sm sm:text-base md:text-lg font-medium uppercase">
+                  ADLAMBS
+                </span>
+              </div>
             </div>
 
-            <div className="flex flex-col lg:flex-row items-center gap-6 md:gap-8">
+            <div className="flex flex-col lg:flex-row items-center gap-6 md:gap-8 relative z-10">
               {/* Left side - Content */}
               <div className="w-full flex-row space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-8">
                 <h1 className={`text-black font-['Kumbh_Sans',sans-serif] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[80px] font-medium h-auto leading-tight md:leading-tight lg:leading-[73.92px] mb-2 sm:mb-3 md:mb-4 lg:mb-[30px] m-0 p-0 text-center sm:text-start`}>
