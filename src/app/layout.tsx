@@ -3,10 +3,14 @@ import "./globals.css";
 import ClientBody from "./ClientBody";
 
 export const metadata: Metadata = {
-  title: "Adlambs - Where Ads Meet Rewards",
+  title: "AdLambs - Reklamlar ve Ödüller Buluşuyor",
   description:
-    "AdLambs is an innovative platform that gamifies advertisements for e-commerce businesses, offering users a next-generation experience with discounts and rewards.",
+    "AdLambs, e-ticaret işletmeleri için reklamları oyunlaştıran, kullanıcılara indirim ve ödüllerle yeni nesil bir deneyim sunan yenilikçi bir platformdur.",
   viewport: "width=device-width, initial-scale=1, maximum-scale=5",
+  icons: [
+    { rel: "icon", url: "/images/logo.png" },
+    { rel: "apple-touch-icon", url: "/images/logo.png" }
+  ],
 };
 
 export default function RootLayout({
@@ -15,7 +19,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="tr" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/images/logo.png" sizes="any" />
+      </head>
       <body>
         <ClientBody>{children}</ClientBody>
       </body>
