@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // API route'ları kullanabilmek için 'export' kaldırıldı
+  // output: 'export',
   distDir: 'out',
   images: {
     unoptimized: true,

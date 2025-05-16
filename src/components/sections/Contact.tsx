@@ -36,11 +36,21 @@ export default function Contact() {
         body: JSON.stringify(formState),
       });
       
-      const data = await response.json();
-      
+      // JSON parse hatası olmaması için önce yanıtın varlığını kontrol edelim
       if (!response.ok) {
-        throw new Error(data.error || 'Bir hata oluştu.');
+        let errorMessage = 'Bir hata oluştu.';
+        try {
+          const data = await response.json();
+          errorMessage = data.error || errorMessage;
+        } catch (parseError) {
+          console.error('Yanıt JSON olarak ayrıştırılamadı:', parseError);
+          errorMessage = `Sunucu hatası: ${response.status} ${response.statusText}`;
+        }
+        throw new Error(errorMessage);
       }
+      
+      // Başarılı yanıt
+      const data = await response.json();
       
       // Form başarıyla gönderildi
       setStatus({ loading: false, success: true, error: null });
