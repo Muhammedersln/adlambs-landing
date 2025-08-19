@@ -97,7 +97,7 @@ export default function About() {
       <div className="w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 xl:gap-24">
           {/* Left Content */}
-          <div className="w-full lg:w-7/12">
+          <div className="w-full lg:w-1/2">
             {/* Section Header */}
             <div className="mb-6 sm:mb-8 md:mb-10">
               <span className={`text-adlambs-purple uppercase tracking-wide text-xs sm:text-sm font-normal animate-slide-up ${isVisible ? 'is-visible' : ''}`}>
@@ -141,15 +141,17 @@ export default function About() {
           </div>
 
           {/* Right Video */}
-          <div className={`w-full lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0 mb-10 lg:mb-20 animate-slide-up animate-delay-500 ${isVisible ? 'is-visible' : ''}`}>
-            <div className="w-full h-auto overflow-hidden">
+          <div className={`w-full lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0 animate-slide-up animate-delay-500 ${isVisible ? 'is-visible' : ''}`}>
+            <div className="w-full max-w-md mx-auto overflow-hidden rounded-lg shadow-lg">
               <video
-                src="https://adlambs.com/wp-content/uploads/2024/11/adlambshowtowork.mp4"
+                src="/video.mov"
                 autoPlay
                 loop
                 muted
                 playsInline
-                className="w-full h-full object-cover"
+                className="w-full h-auto object-cover"
+                controls={false}
+                preload="auto"
               />
             </div>
           </div>
